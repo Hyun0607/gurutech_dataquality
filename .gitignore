@@ -1,0 +1,73 @@
+# ─────────────────────────────────────────────────────────────
+# stdtool 저장소: 코드만 올리고 자료·산출물·개인 설정은 올리지 않는다
+# ─────────────────────────────────────────────────────────────
+
+# 1) 참고 자료 폴더 (매뉴얼·기관 원본·메타 파일)
+/공공데이터 품질관리 메뉴얼 및 참고 파일/
+/docs/
+
+# 2) 개인 설정 (내 PC 경로·DB 접속 정보). 예시 파일만 올린다
+stdtool/config.toml
+*.local.toml
+.env
+.env.*
+
+# 3) 자료 파일은 어디에 있든 전부 제외
+#    (엑셀·한글·PDF·PPT·워드·CSV·사전 DB·그림)
+*.xlsx
+*.xlsm
+*.xls
+*.csv
+*.hwp
+*.hwpx
+*.pdf
+*.ppt
+*.pptx
+*.doc
+*.docx
+*.txt
+*.sqlite
+*.sqlite3
+*.db
+*.png
+*.jpg
+*.jpeg
+*.JPG
+*.PNG
+*.zip
+
+# 3-1) 기관 데이터가 든 SQL (DBeaver용 기관표준 넣기 스크립트)
+#      스키마(schema.sql)·코드 추가분(code_additions.sql)만 올린다
+stdtool/sql/*.sql
+!stdtool/sql/schema.sql
+!stdtool/sql/code_additions.sql
+
+# 3-2) 예외: 프로그램이 화면을 그리는 데 꼭 필요한 아이콘·글꼴
+!stdtool/stdtool/ui/assets/
+!stdtool/stdtool/ui/assets/**
+#      예외: 배포 zip에 들어가는 팀원용 안내문
+!stdtool/packaging/설치 안내.txt
+
+# 4) 빌드 결과·가상환경·캐시
+stdtool/build/
+stdtool/dist/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+*.spec.bak
+
+# 5) 실행하면 생기는 산출물·기록
+output/
+history.sqlite
+실행기록.xlsx
+
+# 6) 편집기·OS
+.vscode/
+.idea/
+.claude/
+Thumbs.db
+Desktop.ini
+.DS_Store
+~$*

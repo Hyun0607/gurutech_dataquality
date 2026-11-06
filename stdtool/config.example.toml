@@ -1,0 +1,77 @@
+# stdtool 설정 예시. 복사해서 기관·DB별로 하나씩 만든다.
+# 경로는 이 파일 위치 기준 상대경로 또는 절대경로.
+
+[project]
+org_name = "한국농업기술진흥원"            # 매크로 RAW!J4
+db_name = "(농진원)생명자원정보서비스(BRIS)" # 매크로 RAW!K4
+enact_date = 20170715                     # 제정일자, 매크로 RAW!H4
+inst_std = "N"                            # 기관표준여부 Y/N, 매크로 RAW!I4
+output_dir = "output"                     # 산출물 폴더 (매크로는 바탕화면 고정)
+
+[source]
+# 공통표준·기관표준·Code_type·Code_tail 시트를 읽을 매크로 파일
+macro_workbook = 'C:\자료\표준구조_매크로.xlsm'
+meta = "메타.xlsx"                         # 매크로 '메타' 시트 양식 (A~AT, 4행부터)
+meta_sheet = ""                           # 비우면 첫 시트
+
+[db]                                      # 표준 사전 DB (MySQL, sql/schema.sql). 비밀번호는 환경변수 STDTOOL_DB_PASSWORD
+use = false                               # true면 위 매크로 파일·아래 공통표준 원본 대신 DB에서 읽음 (기관표준 미준용만)
+host = "localhost"
+port = 3306
+user = "root"
+database = "std_dict"
+# file = "std_dict.sqlite"                # 사전 파일(stdtool db export 로 만든 것)을 쓰면 MySQL 대신 이 파일을 읽음
+
+[mode]
+enhanced = true                           # false 또는 --macro-mode 이면 매크로와 같게
+
+[domain]                                  # ① 도메인 사전 (고도화 모드에서만)
+parse_type_length = true                  # VARCHAR2(100), NUMBER(10,2) 분리, 소수점 보존
+scale_separator = "_"                     # 소수점이 있으면 도메인명 길이 뒤에 붙임: 금액NM10_2
+korean_class = true                       # 영문 접미어로 분류 못 찾으면 한글명 끝말로 판정
+ensure_term_domains = true                # 용어가 가리키는 도메인이 없으면 자동 추가
+pool = []                                 # 재사용할 기존 도메인 파일 (DB표준도메인 양식)
+
+[domain.length_policy]                    # 길이 누락 시 넣을 값 (세부 안내서 p.76 예: NUMBER 38)
+NUMBER = 38
+
+[domain.type_extra]                       # Code_type에 없는 타입의 약어 (예시는 주석 해제해서 사용)
+# UUID = "UID"
+# INT4 = "INT4"
+
+# [domain.type_alias.POSTGRESQL]           # 같은 타입의 다른 표기 → 공식 표기. 기본값 CHAR = "CHARACTER", VARCHAR = "CHARACTER VARYING"
+
+[domain.type_abbr_override]               # Code_type 약어를 바꿀 때. 기본값 NAME = "NAM", CHARACTER = "CHR" (NM·CH는 NUMBER·CHAR가 씀)
+# VARCHAR2 = "VC2"
+
+[domain.korean_suffix]                    # 기본 사전에 더할 한글 끝말 → 분류 (분류명은 Code_tail 분류 중 하나)
+# 성명 = "명칭"
+
+[common_standard]                         # ② 공통표준 원본 (공공데이터 포털 배포 양식). 없으면 ②는 건너뜀
+term = 'C:\자료\공통표준\공통표준용어.xlsx'
+word = 'C:\자료\공통표준\공통표준단어.xlsx'
+domain = 'C:\자료\공통표준\공통표준도메인.xlsx'
+
+[synonym]                                 # ② 유의어·금칙어 대응
+auto_apply = false                        # true면 치환 권고를 정의서에 바로 적용 (실제 DB 컬럼명·타입과 달라짐)
+top = 3                                   # 유사 후보 개수
+min_score = 0.5                           # 유사 후보 최소 점수 (0~1)
+fill_words = true                         # 단어 한글명을 공통표준단어로 채움
+review = ""                               # 확정(Y/N)을 고친 표준매핑 검토 파일 (--review 로도 지정)
+
+[precheck]
+length_required_types = ["CHAR", "VARCHAR", "VARCHAR2", "NCHAR", "NVARCHAR", "NUMBER"]
+
+[manual]
+chunk_size = 5000                         # 수동등록 파일 분할 행 수
+
+[link]                                    # 연계 (2-1-5-1 목록 정의서, 2-1-5-2 관리현황). 컬럼정의서에서 연계될 만한 컬럼을 추천
+enabled = true
+direction = "송신"                        # 송·수신 구분
+cycle = "실시간"                          # 주기 (실시간, 매일, 매주, 매월 …)
+user_org = ""                             # 활용기관 (비우면 project.org_name)
+result = "오류 없음"                      # 점검 결과
+action = "수시 점검 기조 유지"            # 오류조치방안
+method = ""                               # 점검 방법 (비우면 빈칸)
+start = "06-01"                           # 점검 일시 범위: 올해 이 날짜 ~ 실행한 날 (평일 09~18시 무작위)
+review = ""                               # 선택(Y/N)을 고친 연계후보 파일 (--link-review 로도 지정)
