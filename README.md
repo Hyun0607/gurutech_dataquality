@@ -32,7 +32,88 @@
 
 ## 아키텍처
 
-계층(진입점 → 화면 → 실행 흐름 → core 로직 → 파일 읽기·쓰기 → 사전·기록 → 저장소)과 입력·산출물 흐름은 [stdtool/docs/stdtool_architecture.drawio](stdtool/docs/stdtool_architecture.drawio)에 그려 두었습니다 ([diagrams.net](https://app.diagrams.net) 또는 VS Code Draw.io Integration 확장으로 열기).
+```mermaid
+flowchart TB
+    subgraph IN["입력 파일 (읽기만)"]
+        direction LR
+        I1["메타 파일 xlsx"]
+        I2["기관표준 xlsx"]
+        I3["이행점검 대상 · IRM 목록"]
+        I4["RFP · 완료/감리보고서<br>hwp · hwpx · pdf"]
+    end
+
+    subgraph ENTRY["1. 진입점"]
+        direction LR
+        GUI["stdtool-gui<br>ui/app.py"]
+        CLI["stdtool CLI<br>cli.py"]
+        EXE["팀 배포 exe<br>PyInstaller"]
+    end
+
+    subgraph UI["2. 화면 ui/ (PySide6)"]
+        direction LR
+        MW["main_window<br>기관 → 시스템 선택"]
+        RP["run_panel<br>▶ 실행 17단계"]
+        PG["pages<br>표준·구조·연계 결과"]
+        IP["inst_panel<br>기관표준 · A값"]
+        PP["preventive_pages<br>예방적 품질관리"]
+    end
+
+    subgraph FLOW["3. 실행 흐름"]
+        direction LR
+        SRV["service.py<br>사전·메타 읽기 → pipeline → 저장 → 관계·연계"]
+        PIPE["pipeline.py<br>12단계: RAW → 정제 → 매핑 → 생성 → 정의서 → 사전점검 → 현행화"]
+    end
+
+    subgraph CORE["4. 로직 core/ (화면 코드 없음)"]
+        direction LR
+        C1["cleanse · mapping<br>synonym ② · naming/generate ①<br>enhance ① · consolidate · manual"]
+        C2["precheck ③<br>통합시스템과 같은 사전점검"]
+        C3["currency · relation · linkage<br>구조 현행화 · 관계 · 연계"]
+        C4["preventive · preventive_check<br>대상 사업 · RFP · 보고서 판정"]
+        C5["inst_check<br>A값 1 / 0.9 / 0.8"]
+    end
+
+    subgraph WB["5. 파일 읽기·쓰기 workbook/"]
+        direction LR
+        W1["reader · documents"]
+        W2["writer · templates · 각종 report"]
+    end
+
+    subgraph BASE["6. 사전 · 기록"]
+        direction LR
+        DB["db.py · inst_db.py<br>dictionary.py"]
+        HI["history.py<br>preventive_store.py"]
+    end
+
+    subgraph STORE["7. 저장소"]
+        direction LR
+        MY[("MySQL std_dict<br>관리자 원본")]
+        SQ[("std_dict.sqlite<br>배포용 사전 파일")]
+        HS[("history.sqlite<br>회차 기록")]
+    end
+
+    OUT["산출물: 정의서 5종 · 수동등록 · 테이블관계정의서 · 연계 정의서 2종<br>이행점검 결과 엑셀 · A값 결과 · 실행기록"]
+
+    EXE -.-> GUI
+    GUI --> MW
+    CLI -.-> SRV
+    RP -->|▶ 실행| SRV
+    SRV --> PIPE
+    PIPE --> C1 & C2 & C3
+    PP -.->|바로 호출| C4
+    IP -.->|바로 호출| C5
+    IN --> W1
+    CORE --> WB
+    W2 --> OUT
+    SRV --> DB
+    DB --> MY & SQ
+    MY -.->|db export| SQ
+    HI --> HS
+```
+
+실선은 호출·데이터 흐름이고, 점선은 선택 경로이거나 화면에서 바로 부르는 경우입니다. ①②③은 매크로보다 고도화한 부분입니다: ① 도메인 사전, ② 유의어·금칙어, ③ 사전점검.
+
+모듈별로 더 자세히 그린 그림은 [stdtool/docs/stdtool_architecture.drawio](stdtool/docs/stdtool_architecture.drawio)에 있습니다. [diagrams.net](https://app.diagrams.net)이나 VS Code의 Draw.io Integration 확장으로 열어 고칠 수 있습니다.
 
 ## 폴더 구조
 
