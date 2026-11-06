@@ -1,0 +1,265 @@
+<mxfile host="drawio" agent="stdtool" version="24.0.0">
+  <diagram id="arch" name="stdtool 아키텍처">
+    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1720" pageHeight="1240" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c1" value="&lt;b&gt;stdtool 아키텍처&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:12px' color='#5F6B7A'&gt;공공데이터 품질관리 수준평가 표준·구조·연계(2-1-2 ~ 2-1-5) 산출물 생성·사전점검 · Python 3.11 / PySide6 / openpyxl · v1.2.0&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;fontSize=20;fontColor=#1B1F24;" vertex="1" parent="1">
+          <mxGeometry x="20" y="10" width="1680" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" value="1. 진입점" style="swimlane;html=1;startSize=28;rounded=1;arcSize=3;fillColor=#E8F1FF;strokeColor=#3D7BF7;swimlaneFillColor=#E8F1FF;fontStyle=1;fontSize=14;fontColor=#1B1F24;align=left;spacingLeft=10;strokeWidth=1.5;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="70" width="1120" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" value="&lt;b&gt;stdtool-gui&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;ui/app.py · 데스크톱 화면&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#3D7BF7;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c2">
+          <mxGeometry x="12" y="38" width="359" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" value="&lt;b&gt;stdtool (CLI)&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;cli.py · run / check / db import·export·inst-sql&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#3D7BF7;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c2">
+          <mxGeometry x="381" y="38" width="359" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" value="&lt;b&gt;팀 배포 exe&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;packaging/build.py · stdtool.spec (PyInstaller → zip)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#3D7BF7;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c2">
+          <mxGeometry x="749" y="38" width="359" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" value="2. 화면  ui/  (PySide6)" style="swimlane;html=1;startSize=28;rounded=1;arcSize=3;fillColor=#EEF0FF;strokeColor=#6A5AE0;swimlaneFillColor=#EEF0FF;fontStyle=1;fontSize=14;fontColor=#1B1F24;align=left;spacingLeft=10;strokeWidth=1.5;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="195" width="1120" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="c7" value="&lt;b&gt;main_window&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;메뉴: 표준·구조·연계·예방적·요약&lt;br&gt;기관 → 시스템 선택, 메타 파일 끌어놓기&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6A5AE0;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c6">
+          <mxGeometry x="12" y="36" width="266" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="c8" value="&lt;b&gt;run_panel&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;▶ 실행 진행 17단계 표시&lt;br&gt;(QThread에서 service 실행)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6A5AE0;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c6">
+          <mxGeometry x="288" y="36" width="266" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="c9" value="&lt;b&gt;pages&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;표준 2-1-3 · 구조 2-1-4 · 연계 2-1-5&lt;br&gt;결과 표·지표 화면&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6A5AE0;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c6">
+          <mxGeometry x="565" y="36" width="266" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="c10" value="&lt;b&gt;settings&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;표준 사전 위치 (파일 / MySQL)&lt;br&gt;비밀번호 → 자격 증명 관리자&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6A5AE0;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c6">
+          <mxGeometry x="842" y="36" width="266" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="c11" value="&lt;b&gt;inst_panel&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;기관표준 점검 · A값 (2-1-3-1)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6A5AE0;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c6">
+          <mxGeometry x="12" y="100" width="266" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c12" value="&lt;b&gt;preventive_pages&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;예방적 품질관리 2-1-2: 대상 사업·발주·완료&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6A5AE0;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c6">
+          <mxGeometry x="288" y="100" width="266" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c13" value="&lt;b&gt;record_pages&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;회차 기록 비교&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6A5AE0;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c6">
+          <mxGeometry x="565" y="100" width="266" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c14" value="&lt;b&gt;theme · widgets&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;디자인 토큰 · QSS · 공용 위젯&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6A5AE0;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c6">
+          <mxGeometry x="842" y="100" width="266" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="c15" value="3. 실행 흐름  (메타 파일 → 산출물, ▶ 실행)" style="swimlane;html=1;startSize=28;rounded=1;arcSize=3;fillColor=#E6F7F1;strokeColor=#16A37B;swimlaneFillColor=#E6F7F1;fontStyle=1;fontSize=14;fontColor=#1B1F24;align=left;spacingLeft=10;strokeWidth=1.5;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="380" width="1120" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="c16" value="&lt;b&gt;service.py  ·  execute()&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;17단계: 사전 읽기 → 메타 읽기 → [pipeline 12단계] → 산출물 저장&lt;br&gt;→ 테이블관계정의서 → 연계 정의서 · 기관표준이 사전에 있으면 기관표준여부 자동 Y&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#16A37B;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c15">
+          <mxGeometry x="12" y="38" width="543" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="c17" value="&lt;b&gt;pipeline.py  ·  run()&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;메타→RAW → 값 정제 → 기관표준 매핑 → ② 유의어·금칙어 → 공통표준 매핑&lt;br&gt;→ 도메인 생성 → 용어·단어 생성 → DB표준·도메인 적용 → 정의서 → 수동등록&lt;br&gt;→ ③ 사전점검 → 구조 현행화&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#16A37B;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c15">
+          <mxGeometry x="565" y="38" width="543" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="c18" value="4. 로직  core/  (화면 코드 없음 · 매크로 이식 + 고도화 ①②③)" style="swimlane;html=1;startSize=28;rounded=1;arcSize=3;fillColor=#FFF6E5;strokeColor=#E0961A;swimlaneFillColor=#FFF6E5;fontStyle=1;fontSize=14;fontColor=#1B1F24;align=left;spacingLeft=10;strokeWidth=1.5;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="535" width="1120" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="c19" value="&lt;b&gt;표준·구조 파이프라인&lt;/b&gt;  (pipeline 순서대로)" style="text;html=1;fontSize=11;fontColor=#8A5A00;align=left;" vertex="1" parent="c18">
+          <mxGeometry x="12" y="32" width="400" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="c20" value="&lt;b&gt;cleanse&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;메타→RAW · 값 정제&lt;br&gt;① 타입·길이 파싱&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="12" y="54" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c21" value="&lt;b&gt;mapping&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;기관표준 · 공통표준 매핑&lt;br&gt;DB표준 적용&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="233" y="54" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c22" value="&lt;b&gt;synonym&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;② 이음동의어·금칙어&lt;br&gt;후보 · 치환 권고&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="454" y="54" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c23" value="&lt;b&gt;naming · generate&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;① 도메인명 규칙&lt;br&gt;도메인·용어·단어 생성&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="676" y="54" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c24" value="&lt;b&gt;enhance&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;① 용어가 가리키는&lt;br&gt;도메인 보장&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="897" y="54" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c25" value="&lt;b&gt;consolidate&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;용어 중복 처리&lt;br&gt;도메인 적용 · 정의서&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="12" y="114" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c26" value="&lt;b&gt;manual&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;컬럼정의서 → 메타&lt;br&gt;수동등록 (5,000행)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="233" y="114" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c27" value="&lt;b&gt;precheck&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;③ 사전점검: 통합시스템과&lt;br&gt;묶음·오류명·건수 동일&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="454" y="114" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c28" value="&lt;b&gt;currency&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;구조 현행화 검증&lt;br&gt;(2-1-4-2)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="676" y="114" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c29" value="&lt;b&gt;relation · linkage&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;테이블관계정의서 추정&lt;br&gt;연계 후보 추천&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="897" y="114" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c30" value="&lt;b&gt;독립 기능&lt;/b&gt;  (▶ 실행과 별개로 화면에서 바로)" style="text;html=1;fontSize=11;fontColor=#8A5A00;align=left;" vertex="1" parent="c18">
+          <mxGeometry x="12" y="174" width="400" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="c31" value="&lt;b&gt;preventive&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;이행점검 대상 분류 · IRM 사전협의로 다음 회차 예측&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="12" y="196" width="359" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c32" value="&lt;b&gt;preventive_check&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;RFP DAR 반영 · 완료/감리보고서 세부 기준 18개 Y/N/-&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="381" y="196" width="359" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c33" value="&lt;b&gt;inst_check&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;기관표준 완전성 · 공통표준 준용 → A값 1 / 0.9 / 0.8&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#E0961A;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c18">
+          <mxGeometry x="749" y="196" width="359" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c34" value="5. 파일 읽기·쓰기  workbook/" style="swimlane;html=1;startSize=28;rounded=1;arcSize=3;fillColor=#FDEEF4;strokeColor=#D6487E;swimlaneFillColor=#FDEEF4;fontStyle=1;fontSize=14;fontColor=#1B1F24;align=left;spacingLeft=10;strokeWidth=1.5;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="810" width="1120" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="c35" value="&lt;b&gt;reader&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;메타 · 정의서 ·&lt;br&gt;산출물 폴더&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#D6487E;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c34">
+          <mxGeometry x="12" y="36" width="150" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="c36" value="&lt;b&gt;writer · templates&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;양식에 맞춰&lt;br&gt;정의서 쓰기&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#D6487E;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c34">
+          <mxGeometry x="170" y="36" width="150" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="c37" value="&lt;b&gt;mapping_report&lt;br&gt;linkage_report&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;표준매핑 검토&lt;br&gt;연계 양식&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#D6487E;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c34">
+          <mxGeometry x="327" y="36" width="150" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="c38" value="&lt;b&gt;portal&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;통합시스템 형식&lt;br&gt;사전점검 결과&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#D6487E;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c34">
+          <mxGeometry x="485" y="36" width="150" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="c39" value="&lt;b&gt;documents&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;pdf · hwp · hwpx&lt;br&gt;본문 읽기&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#D6487E;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c34">
+          <mxGeometry x="643" y="36" width="150" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="c40" value="&lt;b&gt;preventive_report&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;이행점검 결과 엑셀&lt;br&gt;가이드 폴더&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#D6487E;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c34">
+          <mxGeometry x="801" y="36" width="150" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="c41" value="&lt;b&gt;inst_reader&lt;br&gt;inst_report&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;기관표준 xlsx 읽기&lt;br&gt;A값 결과 엑셀&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#D6487E;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c34">
+          <mxGeometry x="958" y="36" width="150" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="c42" value="6. 표준 사전 · 기록 · 공용" style="swimlane;html=1;startSize=28;rounded=1;arcSize=3;fillColor=#F1F3F5;strokeColor=#6B7684;swimlaneFillColor=#F1F3F5;fontStyle=1;fontSize=14;fontColor=#1B1F24;align=left;spacingLeft=10;strokeWidth=1.5;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="945" width="1120" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="c43" value="&lt;b&gt;db.py · dictionary.py&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;공통표준 · Code_type/tail · 평가대상 목록&lt;br&gt;MySQL ↔ 사전 파일 같은 테이블&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6B7684;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c42">
+          <mxGeometry x="12" y="36" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c44" value="&lt;b&gt;inst_db.py&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;기관표준 inst_* 테이블&lt;br&gt;가져오기 · DBeaver 스크립트&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6B7684;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c42">
+          <mxGeometry x="233" y="36" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c45" value="&lt;b&gt;history.py · preventive_store.py&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;회차 기록 (메타 내용은 저장 안 함)&lt;br&gt;예방적 점검 이력&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6B7684;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c42">
+          <mxGeometry x="454" y="36" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c46" value="&lt;b&gt;config.py · paths.py&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;config.toml · 사용자 폴더&lt;br&gt;배포 사전 위치&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6B7684;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c42">
+          <mxGeometry x="676" y="36" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c47" value="&lt;b&gt;vba.py · model.py&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;VBA 함수 재현 (Trim · Val …)&lt;br&gt;열 정의 (A~AT)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6B7684;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c42">
+          <mxGeometry x="897" y="36" width="211" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="c48" value="7. 저장소" style="swimlane;html=1;startSize=28;rounded=1;arcSize=3;fillColor=#EAF6FB;strokeColor=#1C8DB8;swimlaneFillColor=#EAF6FB;fontStyle=1;fontSize=14;fontColor=#1B1F24;align=left;spacingLeft=10;strokeWidth=1.5;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="1070" width="1120" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="c49" value="&lt;b&gt;MySQL  std_dict&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;관리자 원본 · DBeaver로 schema.sql · 기관표준 SQL 실행&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#FFFFFF;strokeColor=#1C8DB8;fontSize=11;fontColor=#1B1F24;" vertex="1" parent="c48">
+          <mxGeometry x="12" y="36" width="266" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="c50" value="&lt;b&gt;사전 파일  std_dict.sqlite&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;팀 배포 기본 · exe에 내장 → 사용자 폴더로 복사&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#FFFFFF;strokeColor=#1C8DB8;fontSize=11;fontColor=#1B1F24;" vertex="1" parent="c48">
+          <mxGeometry x="288" y="36" width="266" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="c51" value="&lt;b&gt;history.sqlite&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;%APPDATA%\stdtool · 회차 기록&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#FFFFFF;strokeColor=#1C8DB8;fontSize=11;fontColor=#1B1F24;" vertex="1" parent="c48">
+          <mxGeometry x="565" y="36" width="266" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="c52" value="&lt;b&gt;설정 · 비밀번호&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;config.toml / 화면 설정&lt;br&gt;Windows 자격 증명 관리자 (keyring)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#1C8DB8;fontSize=11;fontColor=#1B1F24;" vertex="1" parent="c48">
+          <mxGeometry x="842" y="36" width="266" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="c53" value="입력 파일 (읽기만)" style="swimlane;html=1;startSize=28;rounded=1;arcSize=3;fillColor=#FAFBFC;strokeColor=#8B95A1;swimlaneFillColor=#FAFBFC;fontStyle=1;fontSize=14;fontColor=#1B1F24;align=left;spacingLeft=10;strokeWidth=1.5;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="195" width="245" height="590" as="geometry" />
+        </mxCell>
+        <mxCell id="c54" value="&lt;b&gt;메타 파일 xlsx&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;기관 메타시스템 양식 A~AT&lt;br&gt;필요한 열만 읽음&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c53">
+          <mxGeometry x="12" y="38" width="221" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c55" value="&lt;b&gt;매크로 xlsm · 공통표준 원본&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;db import로 사전에 넣음&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c53">
+          <mxGeometry x="12" y="116" width="221" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c56" value="&lt;b&gt;평가대상 DB 목록 xlsx&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;기관 · 순번 · 시스템 · DB명&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c53">
+          <mxGeometry x="12" y="194" width="221" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c57" value="&lt;b&gt;기관표준 xlsx&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;용어 · 단어 · 도메인 · 코드&lt;br&gt;(등록 양식 / 통합시스템 결과)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c53">
+          <mxGeometry x="12" y="272" width="221" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c58" value="&lt;b&gt;이행점검 대상 · IRM 목록&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;사업단 대상 xlsx&lt;br&gt;IRM 사전협의(총괄) 목록&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c53">
+          <mxGeometry x="12" y="350" width="221" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c59" value="&lt;b&gt;RFP&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;hwp · hwpx&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c53">
+          <mxGeometry x="12" y="428" width="221" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c60" value="&lt;b&gt;완료 · 감리보고서&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;pdf · hwp · hwpx&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c53">
+          <mxGeometry x="12" y="506" width="221" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c61" value="산출물 (바탕화면 기관_DB 폴더)" style="swimlane;html=1;startSize=28;rounded=1;arcSize=3;fillColor=#FAFBFC;strokeColor=#8B95A1;swimlaneFillColor=#FAFBFC;fontStyle=1;fontSize=14;fontColor=#1B1F24;align=left;spacingLeft=10;strokeWidth=1.5;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="1435" y="195" width="265" height="590" as="geometry" />
+        </mxCell>
+        <mxCell id="c62" value="&lt;b&gt;정의서 5종&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;테이블 · 컬럼정의서&lt;br&gt;DB표준 도메인 · 용어 · 단어&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c61">
+          <mxGeometry x="12" y="38" width="241" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c63" value="&lt;b&gt;수동등록 xlsx&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;5,000행 단위 분할&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c61">
+          <mxGeometry x="12" y="116" width="241" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c64" value="&lt;b&gt;테이블관계정의서&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;물리 ERD 대체 (2-1-4-1)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c61">
+          <mxGeometry x="12" y="194" width="241" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c65" value="&lt;b&gt;연계 정의서 2종&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;2-1-5-1 목록 · 2-1-5-2 관리현황&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c61">
+          <mxGeometry x="12" y="272" width="241" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c66" value="&lt;b&gt;이행점검 결과 엑셀&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;사업단 양식 · 보완 가이드 폴더&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c61">
+          <mxGeometry x="12" y="350" width="241" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c67" value="&lt;b&gt;기관표준 점검 결과&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;A값 · 영역별 건수 · 점검 오류&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c61">
+          <mxGeometry x="12" y="428" width="241" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="c68" value="&lt;b&gt;실행기록.xlsx&lt;/b&gt;&lt;br&gt;&lt;font color='#5F6B7A'&gt;회차별 요약 · 오류 목록&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#8B95A1;fontSize=11;fontColor=#1B1F24;verticalAlign=middle;spacing=4;" vertex="1" parent="c61">
+          <mxGeometry x="12" y="506" width="241" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="e69" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.17;entryY=0;" edge="1" parent="1" source="c3" target="c6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e70" value="같은 화면" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;dashed=1;exitX=0.5;exitY=0;entryX=0.5;entryY=0;" edge="1" parent="1" source="c5" target="c3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e71" value="run · check" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;dashed=1;exitX=0.5;exitY=1;entryX=0.85;entryY=0;" edge="1" parent="1" source="c4" target="c16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e72" value="▶ 실행" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.45;entryY=0;" edge="1" parent="1" source="c8" target="c16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e73" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="c16" target="c17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e74" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.75;entryY=0;" edge="1" parent="1" source="c17" target="c18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e75" value="바로 호출" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;dashed=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="c12" target="c32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e76" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="c18" target="c34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e77" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="c34" target="c42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e78" value="MySQL 모드" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;exitX=0.3;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="c43" target="c49">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e79" value="파일 모드" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;exitX=0.8;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="c43" target="c50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e80" value="db export" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;dashed=1;exitX=1;exitY=0.7;entryX=0;entryY=0.7;" edge="1" parent="1" source="c49" target="c50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e81" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="c45" target="c51">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e82" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="c46" target="c52">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e83" value="읽기" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="c53" target="c34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e84" value="쓰기" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#5F6B7A;strokeWidth=1.5;fontSize=11;fontColor=#3A4350;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0.5;entryY=1;" edge="1" parent="1" source="c34" target="c61">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c85" value="&lt;b&gt;범례&lt;/b&gt;   실선: 호출 · 데이터 흐름   ·   점선: 선택 경로 / 화면에서 바로 호출   ·   ① 도메인 사전  ② 유의어·금칙어  ③ 사전점검 (매크로 대비 고도화)" style="text;html=1;align=left;fontSize=11;fontColor=#5F6B7A;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1195" width="1680" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

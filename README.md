@@ -30,6 +30,10 @@
 - 비밀번호: 환경변수 `STDTOOL_DB_PASSWORD` 또는 Windows 자격 증명 관리자(keyring). 코드·설정 파일에 넣지 않습니다.
 - 배포: PyInstaller → 폴더형 exe + zip
 
+## 아키텍처
+
+계층(진입점 → 화면 → 실행 흐름 → core 로직 → 파일 읽기·쓰기 → 사전·기록 → 저장소)과 입력·산출물 흐름은 [stdtool/docs/stdtool_architecture.drawio](stdtool/docs/stdtool_architecture.drawio)에 그려 두었습니다 ([diagrams.net](https://app.diagrams.net) 또는 VS Code Draw.io Integration 확장으로 열기).
+
 ## 폴더 구조
 
 ```
