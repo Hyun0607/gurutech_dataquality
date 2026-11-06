@@ -13,7 +13,8 @@ from .. import preventive_store as store
 from ..core import preventive as pv
 from ..core import preventive_check as pc
 from ..workbook import preventive_report as report
-from ..workbook.documents import SUFFIXES, DocumentError, read_document
+from ..workbook import submissions as sb
+from ..workbook.documents import DocumentError, read_document
 from ..workbook.writer import safe_name
 from .pages import Page, _ChoiceDelegate, open_path
 from . import theme
@@ -489,13 +490,16 @@ class CheckPage(Page):
         self.matched = self.match_note = ""
         self.record = None
         self.codes = ([], [])
+        self.subs = []   # 완료단계 제출 파일 (보고서 + IRM 산출물, 넣을 때마다 쌓인다)
+        self.skipped = ""   # 방금 넣은 것 중 이미 있던 파일 안내
         order = kind == "발주"
-        self.drop_label = "RFP" if order else "완료·감리보고서"
+        self.drop_label = "RFP" if order else "제출 파일"
         self.empty.setText("RFP(hwpx·hwp)를 창에 끌어다 놓거나 [RFP 찾기]를 누르세요. 사업 금액을 읽고, 이 사업 유형·금액에 맞는 "
                            "데이터 요구사항(DAR)이 RFP에 있는지 지표별로 봅니다. 빠진 지표에는 매뉴얼 3.2.2 문안을 붙여 줍니다."
                            if order else
-                           "완료보고서·감리보고서(pdf·hwpx·hwp)를 창에 끌어다 놓거나 [보고서 찾기]를 누르세요. 지표별 수행 내역이 "
-                           "보고서에 있는지 보고, 빠진 지표는 [가이드 폴더 만들기]로 기관 담당자에게 전달할 보완 자료를 모아 줍니다.")
+                           "완료·감리보고서와 IRM에 등록한 산출물(xlsx·pptx·docx·zip·폴더 등)을 창에 끌어다 놓거나 [파일 추가]를 "
+                           "누르세요. 여러 번 나눠 넣어도 쌓입니다. 보고서·문서(pdf·hwpx·hwp)는 본문에서, 다른 파일은 파일 이름으로 "
+                           "지표별 수행 내역을 찾고, 빠진 지표는 [가이드 폴더 만들기]로 기관 담당자에게 전달할 보완 자료를 모아 줍니다.")
 
         bar = Card()
         row = QHBoxLayout()
@@ -514,7 +518,7 @@ class CheckPage(Page):
         self.name.setVisible(False)
         self.name.lineEdit().textEdited.connect(lambda *_: setattr(self, "manual", True))
         row.addWidget(self.name, 1)
-        self.pick = QPushButton("RFP 찾기" if order else "보고서 찾기")
+        self.pick = QPushButton("RFP 찾기" if order else "파일 추가")
         self.pick.setObjectName("secondary")
         self.pick.clicked.connect(self._pick)
         row.addWidget(self.pick)
@@ -536,6 +540,32 @@ class CheckPage(Page):
         self.info = label("", "muted", wrap=True)
         bar.body.addWidget(self.info)
         self.content.addWidget(bar)
+
+        self.files_card = None
+        if not order:   # 제출 파일 목록: 완료·감리보고서 + IRM 산출물
+            self.files_card = Card()
+            head = QHBoxLayout()
+            head.addWidget(label("제출 파일", "sectionTitle"))
+            self.files_note = label("", "muted")
+            head.addWidget(self.files_note)
+            head.addStretch(1)
+            for text, slot in (("폴더 추가", self._pick_folder), ("선택 빼기", self._remove_files),
+                               ("모두 지우기", self._clear_files)):
+                button = QPushButton(text)
+                button.setObjectName("secondary")
+                button.clicked.connect(slot)
+                head.addWidget(button)
+            self.files_card.body.addLayout(head)
+            self.files_card.body.addWidget(label("완료보고서에 없어도 IRM에 등록된 산출물에 있으면 인정됩니다. "
+                                                 "산출물은 파일 이름(예: DB표준용어, 테이블정의서, 품질진단 보고서)으로 알아봅니다.",
+                                                 "muted", wrap=True))
+            self.files = TableBox(["파일", "구분", "폴더"], flag_label=None)
+            self.files.view.setMinimumHeight(150)
+            self.files.view.setEditTriggers(self.files.view.EditTrigger.NoEditTriggers)
+            self.files.view.setSelectionMode(self.files.view.SelectionMode.ExtendedSelection)
+            self.files_card.body.addWidget(self.files)
+            self.content.addWidget(self.files_card)
+            self.files_card.setVisible(False)
 
         # 사업 정보(사업유형·금액)는 글이라 숫자 카드와 따로, 왼쪽 카드 하나에 두 줄로
         self.project_card = Card()
@@ -650,7 +680,7 @@ class CheckPage(Page):
     def accepts(self, paths: list) -> bool:
         if self.kind == "발주":
             return len(paths) == 1 and Path(paths[0]).suffix.lower() in (".hwpx", ".hwp")
-        return bool(paths) and all(Path(p).is_file() and Path(p).suffix.lower() in SUFFIXES for p in paths)
+        return bool(paths) and all(Path(p).exists() for p in paths)   # 완료: 보고서·IRM 산출물·zip·폴더 모두
 
     def drop_files(self, paths: list):
         self.run(paths)
@@ -661,25 +691,91 @@ class CheckPage(Page):
             if path:
                 self.run([path])
         else:
-            paths, _ = QFileDialog.getOpenFileNames(self, "완료·감리보고서", str(Path.home()), "보고서 (*.pdf *.hwpx *.hwp)")
+            paths, _ = QFileDialog.getOpenFileNames(self, "완료·감리보고서 · IRM 산출물 (여러 개 고를 수 있음)", str(Path.home()),
+                                                    "모든 파일 (*);;보고서 (*.pdf *.hwpx *.hwp);;압축 파일 (*.zip)")
             if paths:
                 self.run(paths)
 
+    def _pick_folder(self):
+        folder = QFileDialog.getExistingDirectory(self, "IRM 산출물 폴더 (안의 파일 전부)", str(Path.home()))
+        if folder:
+            self.run([folder])
+
+    def _remove_files(self):
+        rows = sorted({self.files.proxy.mapToSource(i).row() for i in self.files.view.selectionModel().selectedRows()},
+                      reverse=True)
+        for r in rows:
+            del self.subs[r]
+        self.skipped = ""
+        if rows:
+            self._judge_done()
+
+    def _clear_files(self):
+        self.subs = []
+        self.skipped = ""
+        self._judge_done()
+
     def run(self, paths: list):
+        if self.kind != "발주":
+            self.add_files(paths)
+            return
         try:
-            if self.kind == "발주":
-                paras = read_document(paths[0])
-                self._pick_project([pc.find_project_name(paras)], paths)
-                self._run_order(paths[0], paras)
-            else:
-                docs, files = self._read_done(paths)
-                self._pick_project([pc.find_project_name(p) for _, p in docs], paths)
-                self._run_done(docs, files)
+            paras = read_document(paths[0])
+            self._pick_project([pc.find_project_name(paras)], paths)
+            self._run_order(paths[0], paras)
         except DocumentError as e:
             QMessageBox.warning(self, self.drop_label, str(e))
             return
         self.source = ", ".join(Path(p).name for p in paths)
-        self.sel_code = ""   # 새 보고서는 첫 N 기준부터
+        self._finish()
+
+    def add_files(self, paths: list):
+        """완료단계: 넣은 파일을 제출 파일 목록에 더하고(같은 파일은 한 번만) 다시 판정한다.
+        목록이 비어 있을 때 넣은 파일로만 사업을 고른다 (나중에 더한 산출물이 사업을 바꾸지 않게)."""
+        self.setCursor(Qt.WaitCursor)
+        try:
+            fresh, skipped = sb.new_files(paths, {s.digest for s in self.subs})   # 내용이 같은 파일은 한 번만
+            added = [sb.read_submitted(f, d) for f, d in fresh]
+        finally:
+            self.unsetCursor()
+        self.skipped = (f"이미 넣은 파일 {len(skipped)}개는 넣지 않았습니다 ({', '.join(skipped[:3])}"
+                        f"{' 외' if len(skipped) > 3 else ''})") if skipped else ""
+        if not added:
+            self._show_files()
+            return
+        new = [f for f, _ in fresh]
+        first = not self.subs
+        self.subs += added
+        if first:
+            docs, _ = sb.combine(added)
+            self._pick_project([pc.find_project_name(p) for _, p in docs], new)
+        self._judge_done()
+
+    def _judge_done(self):
+        self._show_files()
+        if not self.subs:
+            self.check = self.record = None
+            self.source = ""
+            self._render()
+            return
+        docs, files = sb.combine(self.subs)
+        self._run_done(docs, files)
+        self.source = sb.summary(self.subs)
+        self._finish()
+
+    def _show_files(self):
+        if not self.files_card:
+            return
+        self.files_card.setVisible(bool(self.subs))
+        note = sb.summary(self.subs) if self.subs else ""
+        if self.skipped:
+            note += f"  ·  <span style='color:{theme.KINDS['warn'][0]}'>{_esc(self.skipped)}</span>"
+        self.files_note.setText(note)
+        self.files.set_rows([[s.name, s.note, str(Path(s.path).parent)] for s in self.subs],
+                            [None if s.docs or "IRM" in s.note else "warn" for s in self.subs])
+
+    def _finish(self):
+        self.sel_code = ""   # 새 점검은 첫 N 기준부터
         self.record = self._record()
         try:
             store.save_check(self.record)   # 기관별 이행점검 결과 엑셀에 모인다
@@ -732,20 +828,6 @@ class CheckPage(Page):
         self._remember_amount(amount)
         types, required, maybe, _ = self._types_items(amount)
         self.check = pc.check_order(paras, Path(path).name, types, required, maybe, self._criteria(), amount)
-
-    def _read_done(self, paths) -> tuple:
-        docs, files = [], []
-        for p in map(Path, paths):
-            for f in (sorted(x for x in p.rglob("*") if x.is_file()) if p.is_dir() else [p]):
-                if f.name.startswith("~$"):
-                    continue
-                files.append(str(f))
-                if f.suffix.lower() in SUFFIXES:
-                    try:
-                        docs.append((f.name, read_document(f)))
-                    except DocumentError:
-                        pass   # 그림뿐인 pdf 등은 파일 이름으로만 본다
-        return docs, files
 
     def _run_done(self, docs, files):
         j = self._judgement()
